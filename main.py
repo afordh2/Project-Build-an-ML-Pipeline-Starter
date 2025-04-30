@@ -56,12 +56,14 @@ def go(config: DictConfig):
             ##################
             _ = mlflow.run(
                 os.path.join(hydra.utils.get_original_cwd(), "src", "basic_cleaning"),
-                entry_point='main',
+                "main",
                 parameters={
-                    "sample": config["etl"]["sample"],
-                    "artifact_name": "sample.csv",
-                    "artifact_type": "raw_data",
-                    "artifact_description": "Raw file as downloaded"
+                    "input_artifact": "sample.csv",
+                    "output_artifact": "clean_sample.csv",
+                    "output_type": "cleaned_data",
+                    "output_description": "Cleaned data from sample.csv",
+                    "min_price": config['etl']['min_price'],
+                    "max_price": config['etl']['max_price']
                 },
             )
 
